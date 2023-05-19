@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Form dan DataTable</title>
+    <title>Form Validation dan Penambahan Input</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 </head>
 <body>
@@ -57,12 +57,69 @@
 
             $('#my-form').on('submit', function(e) {
                 e.preventDefault();
-                var formData = $(this).serialize();
-                console.log(formData);
-
-                // Lakukan permintaan AJAX atau tindakan lainnya berdasarkan data yang dikirimkan
+                if (validateForm()) {
+                    var formData = $(this).serialize();
+                    console.log(formData);
+                    addData(formData);
+                }
             });
+
+            function validateForm() {
+                var entityid = $('#entityid').val();
+                var entityname = $('#entityname').val();
+                var principaladdress1 = $('#principaladdress1').val();
+                var principalcity = $('#principalcity').val();
+                var entitystatus = $('#entitystatus').val();
+
+                if (entityid.trim() === '') {
+                    alert('Mohon isi ID');
+                    return false;
+                }
+
+                if (entityname.trim() === '') {
+                    alert('Mohon isi Nama');
+                    return false;
+                }
+
+                if (principaladdress1.trim() === '') {
+                    alert('Mohon isi Address');
+                    return false;
+                }
+
+                if (principalcity.trim() === '') {
+                    alert('Mohon isi City');
+                    return false;
+                }
+                if (entitystatus.trim() === '') {
+                    alert('Mohon isi Status');
+                    return false;
+                }
+
+                return true;
+            }
+
+            function addData(formData) {
+                var dataTable = $('#data-table').DataTable();
+                var dataArray = formData.split('&');
+                var rowData = {};
+
+                for (var i = 0; i < dataArray.length; i++) {
+                    var pair = dataArray[i].split('=');
+                    rowData[pair[0]] = decodeURIComponent(pair[1]);
+                }
+
+                dataTable.row.add(rowData).draw(false);
+                clearForm();
+            }
+
+            function clearForm() {
+                $('#entityid').val('');
+                $('#entityname').val('');
+                $('#principaladdress1').val('');
+                $('#principalcity').val('');
+                $('#entitystatus').val('');
+            }
         });
-    </script>
+</script>
 </body>
-</html>
+</html>       

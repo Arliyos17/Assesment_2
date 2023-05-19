@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Menampilkan Data dari API ke dalam DataTable menggunakan AJAX</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <table id="data-table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Principal Address</th>
+                <th>Principal City</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#data-table').DataTable({
+                ajax: {
+                    url: 'https://data.colorado.gov/resource/4ykn-tg5h.json',
+                    dataSrc: ''
+                },
+                columns: [
+                    { data: 'entityid' },
+                    { data: 'entityname' },
+                    { data: 'principaladdress1' },
+                    { data: 'principalcity' },
+                    { data: 'entitystatus' }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

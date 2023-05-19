@@ -2,10 +2,29 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Menampilkan Data dari API ke dalam DataTable menggunakan AJAX</title>
+    <title>Form dan DataTable</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 </head>
 <body>
+    <form id="my-form">
+        <label for="first_name">ID :</label>
+        <input type="text" id="entityid" name="entityid"><br>
+
+        <label for="last_name">Nama:</label>
+        <input type="text" id="entityname" name="entityname"><br>
+
+        <label for="email">Principal Address:</label>
+        <input type="text" id="principaladdress1" name="principaladdress1"><br>
+
+        <label for="city">Principal City :</label>
+        <input type="text" id="principalcity" name="principalcity"><br>
+
+        <label for="city">Status :</label>
+        <input type="text" id="entitystatus" name="entitystatus"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
     <table id="data-table" class="display" style="width:100%">
         <thead>
             <tr>
@@ -34,6 +53,14 @@
                     { data: 'principalcity' },
                     { data: 'entitystatus' }
                 ]
+            });
+
+            $('#my-form').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                console.log(formData);
+
+                // Lakukan permintaan AJAX atau tindakan lainnya berdasarkan data yang dikirimkan
             });
         });
     </script>
